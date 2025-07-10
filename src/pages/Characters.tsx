@@ -1,7 +1,8 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { gql, useQuery } from '@apollo/client';
 import { Character } from '@app-types/common';
 import CharacterCard from '@components/CharacterCard';
+import { useSearchParams } from 'react-router-dom';
 
 // Define your GraphQL query
 const GET_CHARACTERS = gql`
@@ -29,10 +30,24 @@ interface GetCharactersVars {} // No variables for this simple query
 
 
 const Characters: React.FC = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const { loading, error, data } = useQuery<GetCharactersData, GetCharactersVars>(GET_CHARACTERS);
 
-  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [searchTerm, setSearchTerm] = useState<string>(searchParams.get('search') || '');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+
+  useEffect(() => {
+    const newSearchParams = new URLSearchParams(searchParams);
+
+    if (searchTerm) {
+      newSearchParams.set('search', searchTerm);
+    } else {
+      newSearchParams.delete('search');
+    }
+
+    setSearchParams(newSearchParams);
+  }, [searchTerm, searchParams, setSearchTerm, setSearchParams])
 
   const filteredCharacters = useMemo(() => {
     if (!data?.characters?.results) return [];
