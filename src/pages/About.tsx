@@ -5,7 +5,7 @@ const About: React.FC = () => {
     <div className="p-6 text-center">
       <h1 className="text-3xl font-bold text-gray-900 mb-4">About This Project</h1>
       <p className="text-lg text-gray-700 mb-4">
-        This starter kit is designed to give you a quick and robust environment for live coding interviews.
+        This project is a starter kit for React Vite project that showcases multiple use cases.
       </p>
       <ul className="list-disc list-inside text-left mx-auto max-w-md text-gray-600">
         <li>Built with React and TypeScript.</li>
@@ -15,7 +15,7 @@ const About: React.FC = () => {
         <li>Configured with Vite for blazing-fast development.</li>
       </ul>
       <p className="mt-6 text-md text-gray-600">
-        Feel free to modify, extend, and experiment with these features during your interview.
+        There are no specific requirements for this project, it is meant as a playground to experiment with different React concepts.
       </p>
     </div>
   );
